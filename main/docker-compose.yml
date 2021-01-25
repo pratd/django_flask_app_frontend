@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:5000
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+    - DATABASE_NAME=${MYSQL_DATABASE}
+    - SQL_USER=${MYSQL_USER}
+    - SQL_PASSWORD=${MYSQL_PASSWORD}
+    - SQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+  db:
+    image: mysql:8.0.1
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - .dbdata:/var/lib/mysql
+    ports:
+      - 33067:3306
+    expose:
+      - "33067"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST="db"
+      - PMA_PORT="33067"
+    restart: always
+    ports:
+      - 8083:80
+    volumes:
+      - /sessions
+
