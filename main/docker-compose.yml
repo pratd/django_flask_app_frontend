@@ -17,7 +17,7 @@ services:
     - SQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
   db:
-    image: mysql:8.0.1
+    image: mysql:5.7.22
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
