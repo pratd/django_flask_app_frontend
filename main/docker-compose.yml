@@ -15,7 +15,7 @@ services:
     - SQL_USER=${MYSQL_USER}
     - SQL_PASSWORD=${MYSQL_PASSWORD}
     - SQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-
+    - AMQ_URL=${AMQ_URL}
   db:
     image: mysql:5.7.22
     environment:
